@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import config from "./db/config.js"; 
 import userRoutes from './routes/user.routes.js'; 
+import postRoutes from './routes/post.routes.js'; 
 
 dotenv.config();
 const app = express();
@@ -13,6 +14,7 @@ app.use(express.json());
 
 
 app.use("/api/auth", userRoutes);
+app.use("/api/posts", postRoutes);
 
 
 const startServer = async () => {
