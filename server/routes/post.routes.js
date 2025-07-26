@@ -7,7 +7,7 @@ import {
   getPosts,
   likePost,
   updatePost,
-} from "../controllers/post.controllers";
+} from "../controllers/post.controllers.js";
 
 const router = Router();
 
