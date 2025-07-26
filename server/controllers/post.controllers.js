@@ -34,6 +34,7 @@ export const getPostById = async (req, res) => {
 };
 
 export const createPost = async (req, res) => {
+    console.log("From create post", req.body)
     try {
         const { title, content, tags } = req.body;
         if (!title || !content)
