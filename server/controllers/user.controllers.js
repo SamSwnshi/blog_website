@@ -26,7 +26,7 @@ export const login = async (req, res) => {
 
     const token = generateJWT(user);
 
-    return res.json({ token ,user});
+    return res.json({ token, user });
   } catch (error) {
     return res
       .status(500)
@@ -74,5 +74,22 @@ export const register = async (req, res) => {
     return res
       .status(500)
       .json({ message: error.message || error, error: true });
+  }
+};
+export const getProfile = (req, res) => {
+  res.json(req.user);
+};
+
+export const updateAvatar = async (req, res, next) => {
+  try {
+    if (!req.file || !req.file.path) {
+      return res.status(400).json({ message: "Avatar image is required" });
+    }
+
+    req.user.avatar = req.file.path;
+    await req.user.save();
+    res.json({ avatar: req.user.avatar });
+  } catch (error) {
+    next(error);
   }
 };
