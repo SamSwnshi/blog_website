@@ -93,3 +93,31 @@ export const updateAvatar = async (req, res, next) => {
     next(error);
   }
 };
+
+
+export const googleLogin = async (req, res, next) => {
+  try {
+    const { idToken } = req.body;
+    if (!idToken) return res.status(400).json({ message: 'idToken is required' });
+
+    const decodedToken = await admin.auth().verifyIdToken(idToken);
+    const { uid, email, name, picture } = decodedToken;
+
+    let user = await User.findOne({ firebaseUID: uid });
+    if (!user) {
+      user = new User({
+        name: name || 'Google User',
+        email,
+        avatar: picture || null,
+        firebaseUID: uid,
+        role: 'user',
+      });
+      await user.save();
+    }
+
+    const token = generateJWT(user);
+    res.json({ token });
+  } catch (error) {
+    next(error);
+  }
+};
