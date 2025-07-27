@@ -4,6 +4,7 @@ import Header from './component/Header'
 import { BrowserRouter as Router, Route, Routes, BrowserRouter } from 'react-router-dom'
 import Register from './component/Register'
 import Login from './component/Login'
+import Dashboard from './component/Dashboard'
 const App = () => {
   return (
     <Router>
@@ -11,6 +12,7 @@ const App = () => {
       <Routes>
         <Route path='/login' element={<Login/>}>Login</Route>
         <Route path='/signup'element={<Register/>}>Register</Route>
+        <Route path='/'element={<Dashboard/>}>Dashboard</Route>
       </Routes>
     </Router>
   )
