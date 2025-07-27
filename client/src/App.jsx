@@ -2,17 +2,19 @@ import React from 'react'
 import './App.css'
 import Header from './component/Header'
 import { BrowserRouter as Router, Route, Routes, BrowserRouter } from 'react-router-dom'
-import Register from './component/Register'
-import Login from './component/Login'
+import Register from './pages/Register'
+import Login from './pages/Login'
 import Dashboard from './component/Dashboard'
+import CreatePost from './pages/CreatePost'
 const App = () => {
   return (
     <Router>
       <Header />
       <Routes>
+        <Route path='/'element={<Dashboard/>}>Dashboard</Route>
         <Route path='/login' element={<Login/>}>Login</Route>
         <Route path='/signup'element={<Register/>}>Register</Route>
-        <Route path='/'element={<Dashboard/>}>Dashboard</Route>
+        <Route path='/create-post'element={<CreatePost/>}>Create Post</Route>
       </Routes>
     </Router>
   )
