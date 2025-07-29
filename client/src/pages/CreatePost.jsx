@@ -65,7 +65,7 @@ const CreatePost = () => {
 
             setLoading(false);
             dispatch(addPost(response.data)); // update Redux store
-            navigate('/'); // redirect, could go to the post or dashboard
+            navigate('/dashboard'); // redirect, could go to the post or dashboard
 
         } catch (err) {
             setLoading(false);
