@@ -67,8 +67,8 @@ const Login = () => {
                     </div>
 
                     <div className="flex flex-col space-y-3">
-                        <button className="bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 rounded" type="submit" disabled={loading}>
-                            {loading ? "Loggin In" : Login}
+                        <button className="bg-amber-500 hover:bg-amber-600 text-white font-semibold p-2 rounded" type="submit" disabled={loading}>
+                            {loading ? "Loggin In" : "Login"}
                         </button>
                         <button className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 rounded">
                             Login with Google
