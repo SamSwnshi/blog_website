@@ -12,12 +12,14 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: true,
+      required: function() {
+        return !this.firebaseUID;
+      },
       minLength: [6, "Password must be at least 6 characters long"],
     },
     avatar: { type: String },
     role: { type: String, default: "user", enum: ["user", "admin"] },
-    firebaseUID: { type: String, default: null },
+    firebaseUID: { type: String, default: null, unique: true, sparse: true },
   },
   { timestamps: true }
 );

@@ -5,5 +5,5 @@ const router = Router()
 
 router.post('/register',register)
 router.post('/login',login)
-router.post('/auth/google', googleLogin);
+router.post('/google-login', googleLogin);
 export default router;
