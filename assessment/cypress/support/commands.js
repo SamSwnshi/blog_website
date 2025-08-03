@@ -22,7 +22,8 @@ Cypress.on("uncaught:exception", (err) => {
 
 // Custom command for API calls to the backend
 Cypress.Commands.add("backendRequest", (options) => {
-  const backendUrl = Cypress.env("backendUrl");
+  // Use IPv4 explicitly instead of hostname
+  const backendUrl = "http://127.0.0.1:5000";
 
   // Modify URL to use the backend URL if it's a relative path
   if (options.url && options.url.startsWith("/")) {

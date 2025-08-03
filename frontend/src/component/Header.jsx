@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../store/authSlice.js"; // adjust path accordingly
+import { clearUser } from "../store/userSlice.js";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -9,15 +10,17 @@ const Header = () => {
 
   // Get login token (change 'auth' to your slice name if different)
   const token = useSelector((state) => state.auth?.token);
+  console.log('Header token:', token);
 
   const handleLogout = () => {
     dispatch(logout());
+    dispatch(clearUser());
     localStorage.removeItem("jwt"); // clean localStorage too
     navigate("/login");
   };
 
   return (
-    <div className="flex justify-between p-5 text-center items-center bg-gray-700 text-white">
+    <nav className="flex justify-between p-5 text-center items-center bg-gray-700 text-white">
       <h1 className="text-2xl font-bold">
         <Link to="/">Blog App</Link>
       </h1>
@@ -28,6 +31,7 @@ const Header = () => {
         {token ? (
           <>
             <Link to="/dashboard">Dashboard</Link>
+            <Link to="/profile">Profile</Link>
             <button
               onClick={handleLogout}
               className="bg-red-600 px-3 py-1 rounded hover:bg-red-700"
@@ -38,11 +42,11 @@ const Header = () => {
         ) : (
           <>
             <Link to="/login">Login</Link>
-            <Link to="/signup">SignUp</Link>
+            <Link to="/signup">Signup</Link>
           </>
         )}
       </div>
-    </div>
+    </nav>
   );
 };
 

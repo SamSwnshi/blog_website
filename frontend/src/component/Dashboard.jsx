@@ -7,20 +7,20 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-
   const { posts, loading, error } = useSelector(state => state.posts);
-
   const token = useSelector(state => state.auth.token);
-  const userId = useSelector(state => state.user?._id);
-
+  const user = useSelector(state => state.user.user);
 
   useEffect(() => {
     dispatch(fetchPosts());
-
   }, [dispatch]);
 
-
-  const myPosts = posts?.filter(post => userId ? (post.author?._id === userId) : true);
+  // Filter posts by current user - handle both string and object author fields
+  const myPosts = posts?.filter(post => {
+    if (!user) return false;
+    const postAuthorId = typeof post.author === 'string' ? post.author : post.author?._id;
+    return postAuthorId === user.id || postAuthorId === user._id;
+  });
 
   console.log(myPosts)
   const handleCreateClick = () => navigate('/create');
@@ -60,6 +60,10 @@ const Dashboard = () => {
 
               <div className="text-xs text-gray-500 mt-1">
                 Tags: {post.tags?.join(', ')}
+              </div>
+              <div className="flex gap-2 mt-2">
+                <button className="bg-blue-500 text-white px-3 py-1 rounded">View</button>
+                <button className="bg-green-500 text-white px-3 py-1 rounded">Edit</button>
               </div>
             </div>
           ))}

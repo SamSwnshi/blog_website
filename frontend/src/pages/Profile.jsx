@@ -3,9 +3,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import api from "../api/api.js"; // your axios base instance
 import { logout } from "../store/authSlice.js"; // adjust path as needed
+import { clearUser } from "../store/userSlice.js";
 
 const Profile = () => {
   const token = useSelector((state) => state.auth?.token);
+  const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -43,6 +45,7 @@ const Profile = () => {
 
   const handleLogout = () => {
     dispatch(logout());
+    dispatch(clearUser());
     localStorage.removeItem("jwt");
     navigate("/login");
   };
@@ -65,6 +68,7 @@ const Profile = () => {
           />
           <h2 className="text-2xl font-semibold mb-2">{profile.name}</h2>
           <p className="text-gray-300 mb-2">{profile.email}</p>
+          <p className="text-gray-300 mb-2">Total Posts: {profile.postCount || 0}</p>
           {/* Add more user info as desired */}
           <button
             onClick={handleLogout}
